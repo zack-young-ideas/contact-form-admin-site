@@ -2,9 +2,14 @@
 Defines tests run against the login page.
 """
 
+from django.contrib.auth import get_user_model
+
 from selenium.webdriver.common.by import By
 
 from tests import base
+
+
+User = get_user_model()
 
 
 class LoginPageTest(base.BaseTestCase):
@@ -13,7 +18,13 @@ class LoginPageTest(base.BaseTestCase):
         """
         Creates a new superuser to log in as.
         """
-        # Create superuser
+        self.admin_username = 'admin'
+        self.admin_password = 'Lk54>4q5|Mk1'
+        User.objects.create_superuser(
+            self.admin_username,
+            'admin@example.com',
+            self.admin_password
+        )
         base.BaseTestCase.setUp(self)
 
     def test_can_login_successfully(self):
@@ -28,8 +39,8 @@ class LoginPageTest(base.BaseTestCase):
         password_field = self.browser.find_element(By.NAME, 'password')
         submit_button = self.browser.find_element(By.NAME, 'submit')
 
-        username_field.send_keys('admin')
-        password_field.send_keys('secretPassword')
+        username_field.send_keys(self.admin_username)
+        password_field.send_keys(self.admin_password)
         submit_button.click()
 
         self.wait_for(lambda: self.assertEqual(
