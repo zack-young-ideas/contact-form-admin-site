@@ -10,6 +10,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox import options as firefox_options
 
 
 class BaseTestCase(StaticLiveServerTestCase):

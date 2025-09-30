@@ -11,6 +11,7 @@ class LoginForm(forms.Form):
         label='',
         widget=forms.TextInput(
             attrs={
+                'class': 'form-control',
                 'placeholder': 'Username'
             }
         )
@@ -21,6 +22,7 @@ class LoginForm(forms.Form):
         max_length=64,
         widget=forms.PasswordInput(
             attrs={
+                'class': 'form-control',
                 'placeholder': 'Username'
             }
         )

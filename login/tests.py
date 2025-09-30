@@ -20,7 +20,7 @@ class LoginPageTest(TestCase):
         self.assertIsInstance(response.context['form'], forms.LoginForm)
 
     def test_redirects_to_dashboard(self):
-        superuser = User.objects.create_superuser(
+        User.objects.create_superuser(
             'admin',
             'admin@example.com',
             '92vLyG-Ly4!q'

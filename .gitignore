@@ -141,3 +141,10 @@ cython_debug/
 
 # Swap files
 *.swp
+
+# Files output by SASS
+*.css
+*.css.map
+
+# Ignore Node packages
+node_modules/
