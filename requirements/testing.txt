@@ -1,0 +1,7 @@
+# Packages required for testing the app.
+
+-r base.txt    # Includes the base.txt requirements file.
+
+coverage
+flake8
+selenium

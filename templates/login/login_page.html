@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+  <div>
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input name="submit" type="submit" value="Log in" />
+  </div>
+
+{% endblock %}

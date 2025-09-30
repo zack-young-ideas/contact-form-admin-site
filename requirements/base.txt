@@ -1,0 +1,10 @@
+# Packages required to run the app in any environment.
+#
+# Note: In order for mysqlclient to function properly, you may need to
+# install the Python and MySQL development headers and libraries using
+# the following commands:
+#
+#     sudo apt-get install build-essential default-libmysqlclient-dev \
+# 
+
+Django
