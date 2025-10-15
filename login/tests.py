@@ -36,6 +36,46 @@ class LoginPageTest(TestCase):
 
         self.assertRedirects(response, '/dashboard')
 
+    def test_displays_error_message_given_invalid_username(self):
+        User.objects.create_superuser(
+            'admin',
+            'admin@example.com',
+            '92vLyG-Ly4!q'
+        )
+
+        response = self.client.post(
+            '/login',
+            data={
+                'username': 'invalidUsername',
+                'password': '92vLyG-Ly4!q',
+            }
+        )
+
+        self.assertContains(
+            response,
+            '<p id="error-message">Invalid username or password</p>'
+        )
+
+    def test_displays_error_message_given_invalid_password(self):
+        User.objects.create_superuser(
+            'admin',
+            'admin@example.com',
+            '92vLyG-Ly4!q'
+        )
+
+        response = self.client.post(
+            '/login',
+            data={
+                'username': 'admin',
+                'password': 'invalidPassword',
+            }
+        )
+
+        self.assertContains(
+            response,
+            '<p id="error-message">Invalid username or password</p>'
+        )
+
 
 class DashboardTest(TestCase):
 

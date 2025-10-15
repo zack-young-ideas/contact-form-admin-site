@@ -8,6 +8,10 @@ def login_page(request):
     """
     The public login page for the admin site.
     """
+    context = {
+        'form': forms.LoginForm(),
+        'error': False,
+    }
     if request.method == 'POST':
         form = forms.LoginForm(data=request.POST)
         if form.is_valid():
@@ -17,7 +21,7 @@ def login_page(request):
             if user is not None:
                 auth.login(request, user)
                 return redirect('dashboard')
-    context = {'form': forms.LoginForm()}
+        context['error'] = True
     return render(request, 'login/login_page.html', context)
 
 

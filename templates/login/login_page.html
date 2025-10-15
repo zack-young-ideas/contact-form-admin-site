@@ -12,6 +12,9 @@
   <form action="{% url 'login' %}" method="post">
     {{ form.as_p }}
     {% csrf_token %}
+    {% if error %}
+      <p id="error-message">Invalid username or password</p>
+    {% endif %}
     <input
       class="btn btn-primary"
       name="submit"
