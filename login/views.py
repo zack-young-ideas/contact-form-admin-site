@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.http import Http404
 from django.shortcuts import redirect, render
 
 from login import forms
@@ -29,4 +30,7 @@ def dashboard(request):
     """
     The admin dashboard main page.
     """
-    return render(request, 'dashboard.html')
+    if request.user.is_authenticated:
+        return render(request, 'dashboard.html')
+    else:
+        raise Http404()
