@@ -91,3 +91,69 @@ class DashboardPageTest(base.BaseTestCase):
         self.wait_for(lambda: self.assertTrue(
             modal_window.is_displayed()
         ))
+
+        # The user clicks the button labeled 'Enable Now'.
+        enable_button = modal_window.find_element(
+            By.LINK_TEXT,
+            'Enable Now'
+        )
+        enable_button.click()
+
+        self.wait_for(lambda: self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + '/dashboard/two-factor-auth'
+        ))
+
+    def test_users_can_close_modal_window(self):
+        """
+        Users can close the modal window prompting them to enable 2FA.
+        """
+        self.browser.get(self.live_server_url + '/login')
+
+        username_field = self.browser.find_element(By.NAME, 'username')
+        password_field = self.browser.find_element(By.NAME, 'password')
+        submit_button = self.browser.find_element(By.NAME, 'submit')
+
+        username_field.send_keys(self.admin_username)
+        password_field.send_keys(self.admin_password)
+        submit_button.click()
+
+        self.wait_for(lambda: self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + '/dashboard'
+        ))
+
+        modal_window = self.browser.find_element(By.ID, 'prompt-window')
+        self.wait_for(lambda: self.assertTrue(
+            modal_window.is_displayed()
+        ))
+
+        # The user clicks the button label 'X'.
+        cancel_buttons = modal_window.find_elements(
+            By.CLASS_NAME,
+            'close-modal-button'
+        )
+        cancel_buttons[0].click()
+
+        self.wait_for(lambda: self.assertFalse(
+            modal_window.is_displayed()
+        ))
+
+        # The user refreshes the page.
+        self.browser.get(self.live_server_url + '/dashboard')
+
+        modal_window = self.browser.find_element(By.ID, 'prompt-window')
+        self.wait_for(lambda: self.assertTrue(
+            modal_window.is_displayed()
+        ))
+
+        # Now, they click the button labeled 'Cancel'.
+        cancel_buttons = modal_window.find_elements(
+            By.CLASS_NAME,
+            'close-modal-button'
+        )
+        cancel_buttons[1].click()
+
+        self.wait_for(lambda: self.assertFalse(
+            modal_window.is_displayed()
+        ))
