@@ -26,6 +26,17 @@ def login_page(request):
     return render(request, 'login/login_page.html', context)
 
 
+def logout_handler(request):
+    """
+    Logs a user out of the admin site.
+    """
+    if request.user.is_authenticated:
+        auth.logout(request)
+        return redirect('login')
+    else:
+        raise Http404()
+
+
 def dashboard(request):
     """
     The admin dashboard main page.

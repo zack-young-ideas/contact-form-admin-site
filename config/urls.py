@@ -20,5 +20,6 @@ from login import views
 
 urlpatterns = [
     path('login', views.login_page, name='login'),
+    path('logout', views.logout_handler, name='logout'),
     path('dashboard', views.dashboard, name='dashboard'),
 ]
