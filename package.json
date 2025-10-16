@@ -5,7 +5,7 @@
   "author": "Zack Young",
   "type": "module",
   "scripts": {
-    "build": "sass scss/login.scss dashboard/static/css/login.css"
+    "build": "sass scss/login.scss dashboard/static/css/login.css && sass scss/login.scss dashboard/static/css/dashboard.css"
   },
   "devDependencies": {
     "bootstrap": "^5.3.8",

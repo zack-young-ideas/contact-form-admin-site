@@ -47,4 +47,8 @@ def two_factor_auth(request):
     """
     The page used to enable two-factor authentication.
     """
-    return render(request, 'dashboard/two_factor_auth.html')
+    context = {
+        'form': forms.TwoFactorAuthForm(),
+        'error': False,
+    }
+    return render(request, 'dashboard/two_factor_auth.html', context)

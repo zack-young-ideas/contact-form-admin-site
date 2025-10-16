@@ -1,12 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 
 {% block title %}Two-Factor Authentication{% endblock %}
 
-{% block content %}
+{% block dashboard_content %}
 
   <div>
     <h2>Two-Factor Authentication</h2>
+
+    <form>
+      {{ form.as_p }}
+    </form>
   </div>
 
 {% endblock %}

@@ -55,6 +55,22 @@ class DashboardPageTest(base.BaseTestCase):
             self.live_server_url + '/dashboard'
         ))
 
+        # The user must close the modal window first.
+        modal_window = self.browser.find_element(By.ID, 'prompt-window')
+        self.wait_for(lambda: self.assertTrue(
+            modal_window.is_displayed()
+        ))
+
+        cancel_buttons = modal_window.find_elements(
+            By.CLASS_NAME,
+            'close-modal-button'
+        )
+        cancel_buttons[0].click()
+
+        self.wait_for(lambda: self.assertFalse(
+            modal_window.is_displayed()
+        ))
+
         # The user clicks the "Logout" button.
         logout_button = self.browser.find_element(By.LINK_TEXT, 'Logout')
         logout_button.click()
@@ -128,7 +144,7 @@ class DashboardPageTest(base.BaseTestCase):
             modal_window.is_displayed()
         ))
 
-        # The user clicks the button label 'X'.
+        # The user clicks the button labeled 'X'.
         cancel_buttons = modal_window.find_elements(
             By.CLASS_NAME,
             'close-modal-button'

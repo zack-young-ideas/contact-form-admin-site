@@ -1,22 +1,27 @@
-{% extends 'base.html' %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 
 {% block title %}Dashboard{% endblock %}
 
-{% block content %}
+{% block dashboard_content %}
 
-  <div>
-    <h2>Admin Dashboard</h2>
-    <a href="{% url 'logout' %}">Logout</a>
-  </div>
-
-  <div id="prompt-window" style="display:none;">
-    <button class="close-modal-button">&times;</button>
-    <h2>Enable Two-Factor Authentication</h2>
-    <p>You have not enabled two-factor authentication. It is strongly
-       recommended you do this now.</p>
-    <button class="close-modal-button">Cancel</button>
-    <a href="{% url 'two-factor-auth' %}">Enable Now</a>
+  <div class="bg-dark bg-opacity-50 modal" id="prompt-window" style="display:none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Enable Two-Factor Authentication</h2>
+          <button class="btn-close close-modal-button"></button>
+        </div>
+        <div class="modal-body">
+          <p>You have not enabled two-factor authentication. It is strongly
+             recommended you do this now.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary close-modal-button">Cancel</button>
+          <a class="btn btn-primary" href="{% url 'two-factor-auth' %}">Enable Now</a>
+        </div>
+      </div>
+    </div>
   </div>
 
 {% endblock %}
