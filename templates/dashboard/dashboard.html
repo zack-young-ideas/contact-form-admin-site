@@ -10,4 +10,17 @@
     <a href="{% url 'logout' %}">Logout</a>
   </div>
 
+  <div id="prompt-window" style="display:none;">
+    <button class="close-modal-button">&times;</button>
+    <h2>Enable Two-Factor Authentication</h2>
+    <p>You have not enabled two-factor authentication. It is strongly
+       recommended you do this now.</p>
+    <button class="close-modal-button">Cancel</button>
+    <a href="">Enable Now</a>
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'js/modal.js' %}"></script>
 {% endblock %}
