@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.urls import path
 
-from login import views
+from dashboard import views
 
 urlpatterns = [
     path('login', views.login_page, name='login'),

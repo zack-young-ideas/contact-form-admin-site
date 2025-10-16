@@ -1,8 +1,7 @@
 from django.contrib import auth
-from django.http import Http404
 from django.shortcuts import redirect, render
 
-from login import forms
+from dashboard import forms, utils
 
 
 def login_page(request):
@@ -26,22 +25,18 @@ def login_page(request):
     return render(request, 'login/login_page.html', context)
 
 
+@utils.modified_login_required
 def logout_handler(request):
     """
     Logs a user out of the admin site.
     """
-    if request.user.is_authenticated:
-        auth.logout(request)
-        return redirect('login')
-    else:
-        raise Http404()
+    auth.logout(request)
+    return redirect('login')
 
 
+@utils.modified_login_required
 def dashboard(request):
     """
     The admin dashboard main page.
     """
-    if request.user.is_authenticated:
-        return render(request, 'dashboard.html')
-    else:
-        raise Http404()
+    return render(request, 'dashboard/dashboard.html')
