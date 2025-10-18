@@ -148,3 +148,7 @@ cython_debug/
 
 # Ignore Node packages
 node_modules/
+
+# Ignore static files that are compiled
+static/css/
+static/js/

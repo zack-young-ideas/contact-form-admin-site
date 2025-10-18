@@ -23,8 +23,8 @@ urlpatterns = [
     path('logout', views.logout_handler, name='logout'),
     path('dashboard', views.dashboard, name='dashboard'),
     path(
-        'dashboard/two-factor-auth', 
-        views.two_factor_auth, 
+        'dashboard/two-factor-auth',
+        views.two_factor_auth,
         name='two-factor-auth'
     ),
 ]

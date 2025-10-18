@@ -21,6 +21,17 @@
     {% block content %}{% endblock %}
   </body>
 
+  {% if DEBUG_IS_TRUE %}
+    {# Must initialzie the React Refresh runtime. #}
+    <script type="module">
+      import RefreshRuntime from 'http://localhost:5173/@react-refresh'
+      RefreshRuntime.injectIntoGlobalHook(window)
+      window.$RefreshReg$ = () => {}
+      window.$RefreshSig$ = () => (type) => type
+      window.__vite_plugin_react_preamble_installed__ = true
+    </script>
+  {% endif %}
+
   {% block javascript %}
     {# Include custom JavaScript files. #}
   {% endblock %}

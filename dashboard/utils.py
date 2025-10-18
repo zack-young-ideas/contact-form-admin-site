@@ -3,8 +3,46 @@ Defines a decorator that returns 404 if the user is not authenticated.
 """
 
 from functools import wraps
+import json
+import os
 
+from django.conf import settings
 from django.http import Http404
+
+
+_manifest = None
+
+
+def get_vite_asset(path: str) -> str:
+    """
+    Returns the path to the built asset from manifest.json.
+    """
+    global _manifest
+
+    if settings.DEBUG:
+        # In dev mode, retrieve files from Vite's dev server instead.
+        return [f'http://localhost:5173/{path}']
+
+    if _manifest is None:
+        manifest_path = os.path.join(
+            settings.STATIC_ROOT,
+            '.vite',
+            'manifest.json'
+        )
+        with open(manifest_path, 'r') as f:
+            _manifest = json.load(f)
+
+    entry_data = _manifest.get(path)
+    files = []
+
+    if not entry_data:
+        raise ValueError(f"Asset '{path}' not found in Vite manifest")
+
+    for imp in entry_data.get('imports', []):
+        files.append(settings.STATIC_URL + _manifest[imp]['file'])
+
+    files.append(settings.STATIC_URL + entry_data['file'])
+    return files
 
 
 def modified_login_required(view_function):
