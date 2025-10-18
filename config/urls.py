@@ -27,4 +27,9 @@ urlpatterns = [
         views.two_factor_auth,
         name='two-factor-auth'
     ),
+    path(
+        'dashboard/verify-email',
+        views.verify_email,
+        name='verify-email'
+    ),
 ]

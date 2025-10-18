@@ -155,15 +155,47 @@ class DashboardPageTest(base.BaseTestCase):
             modal_window.is_displayed()
         ))
 
-        # The user refreshes the page.
-        self.browser.get(self.live_server_url + '/dashboard')
+    def test_user_is_prompted_to_verify_their_email_address(self):
+        """
+        If the user clicks "Skip", they are prompted to verify their
+        email address.
+        """
+        self.browser.get(self.live_server_url + '/login')
+
+        username_field = self.browser.find_element(By.NAME, 'username')
+        password_field = self.browser.find_element(By.NAME, 'password')
+        submit_button = self.browser.find_element(By.NAME, 'submit')
+
+        username_field.send_keys(self.admin_username)
+        password_field.send_keys(self.admin_password)
+        submit_button.click()
+
+        self.wait_for(lambda: self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + '/dashboard'
+        ))
 
         modal_window = self.browser.find_element(By.ID, 'prompt-window')
         self.wait_for(lambda: self.assertTrue(
             modal_window.is_displayed()
         ))
 
-        # Now, they click the button labeled 'Cancel'.
+        # The user clicks the button labeled 'Skip'.
+        cancel_buttons = modal_window.find_elements(
+            By.CLASS_NAME,
+            'close-modal-button'
+        )
+        cancel_buttons[1].click()
+
+        heading = modal_window.find_element(By.TAG_NAME, 'h2')
+
+        self.wait_for(lambda: self.assertEqual(
+            heading.text,
+            'Verify Your Email Address'
+        ))
+
+        # The user clicks the 'Skip' button again and the modal
+        # window closes.
         cancel_buttons = modal_window.find_elements(
             By.CLASS_NAME,
             'close-modal-button'

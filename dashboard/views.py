@@ -1,5 +1,6 @@
 from django.contrib import auth
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from dashboard import forms, utils
 
@@ -39,7 +40,11 @@ def dashboard(request):
     """
     The admin dashboard main page.
     """
-    return render(request, 'dashboard/dashboard.html')
+    context = {
+        'two_factor_auth_url': reverse('two-factor-auth'),
+        'verify_email_url': reverse('verify-email'),
+    }
+    return render(request, 'dashboard/dashboard.html', context)
 
 
 @utils.modified_login_required
@@ -52,3 +57,11 @@ def two_factor_auth(request):
         'error': False,
     }
     return render(request, 'dashboard/two_factor_auth.html', context)
+
+
+@utils.modified_login_required
+def verify_email(request):
+    """
+    The page used to verify a user's email address.
+    """
+    return render(request, 'dashboard/verify_email.html')

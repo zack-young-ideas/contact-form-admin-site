@@ -10,7 +10,7 @@ register = template.Library()
 def vite_assets(path):
     """
     Usage:
-        {% vite_asset 'assets/javascript/dashboard-modal/main.tsx' %}
+        {% vite_assets 'assets/javascript/dashboard-modal/main.tsx' %}
     Returns the URL to the built JS file.
     """
     return get_vite_asset(path)
