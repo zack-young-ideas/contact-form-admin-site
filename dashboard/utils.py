@@ -23,9 +23,13 @@ def get_vite_asset(path: str) -> str:
         # In dev mode, retrieve files from Vite's dev server instead.
         return [f'http://localhost:5173/{path}']
 
+    static_dir = os.path.join(settings.BASE_DIR, 'static')
+    if settings.STATIC_ROOT:
+        static_dir = settings.STATIC_ROOT
+
     if _manifest is None:
         manifest_path = os.path.join(
-            settings.STATIC_ROOT,
+            static_dir,
             '.vite',
             'manifest.json'
         )
