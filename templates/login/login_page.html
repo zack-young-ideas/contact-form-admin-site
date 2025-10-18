@@ -14,7 +14,12 @@
       {{ form.as_p }}
       {% csrf_token %}
       {% if error %}
-        <p id="error-message">Invalid username or password</p>
+        <p
+          class="text-danger"
+          id="error-message"
+        >
+          Invalid username or password
+        </p>
       {% endif %}
       <input
         class="btn btn-primary"
